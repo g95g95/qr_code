@@ -12,9 +12,11 @@ permissions:
   pages: write
   id-token: write
 
+# Un deploy alla volta, ma senza cancellare quelli in corso: un push sul
+# branch di lavoro non deve piu' uccidere il deploy partito da main.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   test:
@@ -35,6 +37,9 @@ jobs:
 
   deploy:
     needs: test
+    # Pages pubblica solo dal branch di default: dagli altri branch girano
+    # i test e basta (l'ambiente github-pages rifiuterebbe il deploy).
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
