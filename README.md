@@ -12,7 +12,7 @@ Inquadri il QR con la fotocamera del telefono e si apre il menu.
 
 | File | Cosa fa |
 | --- | --- |
-| `index.html` | La landing page del menu (antipasto / primo / secondo), autonoma: zero dipendenze esterne |
+| `index.html` | La landing page del menu (antipasto / primo / secondo / dolce / da bere) con allergeni per piatto e filtro per allergene, autonoma: zero dipendenze esterne |
 | `qr.html` | Cartello con il QR, pronto da stampare e attaccare in cucina o sul tavolo |
 | `assets/qr-menu.svg` / `.png` | Il QR code generato (SVG per lo schermo, PNG per la stampa) |
 | `tools/generate_qr.py` | Genera i due file del QR |

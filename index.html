@@ -196,7 +196,8 @@
   nav.courses ul {
     list-style: none;
     display: flex;
-    gap: .45rem;
+    flex-wrap: wrap;
+    gap: .35rem;
     justify-content: center;
     margin: 0;
     padding: 0;
@@ -204,12 +205,12 @@
   nav.courses a {
     display: block;
     text-decoration: none;
-    font-size: .82rem;
+    font-size: clamp(.72rem, 2.6vw, .82rem);
     font-weight: 650;
-    letter-spacing: .1em;
+    letter-spacing: .08em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    padding: .5rem .9rem;
+    padding: .45rem .75rem;
     border-radius: 999px;
     border: 1px solid transparent;
     transition: color .2s, background .2s, border-color .2s;
@@ -297,11 +298,13 @@
     font-size: 1.19rem;
     line-height: 1.25;
   }
-  .dish .mark {
+  /* il segno fa parte del nome: cosi' i nomi lunghi vanno a capo
+     senza lasciare il simbolo da solo su una riga */
+  .dish .name::before {
+    content: "✦";
     color: var(--gold);
-    font-size: 1rem;
-    line-height: 1;
-    transform: translateY(-1px);
+    font-size: .88em;
+    margin-right: .5rem;
   }
 
   .tag {
@@ -324,6 +327,104 @@
     margin: .6rem 0 0;
     padding: 0;
   }
+
+  /* ---------- allergeni ---------- */
+  ul.allergeni {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .3rem;
+    margin: .55rem 0 0;
+    padding: 0;
+  }
+  ul.allergeni .etichetta {
+    font-size: .66rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: .75;
+    margin-right: .1rem;
+  }
+  .allergene {
+    font-size: .74rem;
+    font-weight: 600;
+    color: var(--red);
+    background: color-mix(in srgb, var(--red) 9%, transparent);
+    border: 1px solid color-mix(in srgb, var(--red) 32%, transparent);
+    padding: .18rem .55rem;
+    border-radius: 7px;
+  }
+  .allergene.forse {
+    color: var(--ink-soft);
+    background: transparent;
+    border-style: dashed;
+    border-color: var(--line);
+  }
+  .allergene.assente {
+    color: var(--olive);
+    background: color-mix(in srgb, var(--olive) 12%, transparent);
+    border-color: color-mix(in srgb, var(--olive) 32%, transparent);
+  }
+
+  .legenda {
+    margin: 1.6rem 0 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--red);
+    border-radius: 16px;
+    padding: 1.05rem 1.2rem;
+    box-shadow: var(--shadow);
+  }
+  .legenda h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin: 0 0 .3rem;
+  }
+  .legenda p {
+    margin: 0 0 .8rem;
+    font-size: .85rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .filtri {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    margin: 0;
+    padding: 0;
+  }
+  .filtri button {
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: .3rem .7rem;
+    border-radius: 999px;
+    transition: background .18s, color .18s, border-color .18s;
+  }
+  .filtri button:hover { color: var(--ink); }
+  .filtri button[aria-pressed="true"] {
+    color: #fff8ee;
+    background: var(--red);
+    border-color: var(--red);
+  }
+  @media (prefers-color-scheme: dark) {
+    .filtri button[aria-pressed="true"] { color: #1b0f14; }
+  }
+
+  /* stato del filtro: evidenzia i piatti che contengono l'allergene scelto */
+  ul.dishes > li.evidenziato {
+    background: color-mix(in srgb, var(--red) 8%, transparent);
+    box-shadow: inset 3px 0 0 var(--red);
+  }
+  ul.dishes > li.attenuato { opacity: .38; }
   .ingredients li {
     font-size: .82rem;
     color: var(--ink-soft);
@@ -436,10 +537,32 @@
       <li><a href="#antipasto">Antipasto</a></li>
       <li><a href="#primo">Primo</a></li>
       <li><a href="#secondo">Secondo</a></li>
+      <li><a href="#dolce">Dolce</a></li>
+      <li><a href="#bere">Da bere</a></li>
     </ul>
   </nav>
 
   <main>
+    <section class="legenda" id="allergeni" aria-labelledby="h-allergeni">
+      <h2 id="h-allergeni">⚠️ Allergeni</h2>
+      <p>
+        Tocca un allergene per vedere subito in quali piatti si trova.
+        Le indicazioni tratteggiate sono <em>da confermare</em>: è cucina di casa,
+        quindi per un'allergia seria chiedete in cucina prima di servirvi —
+        gli stessi piatti sono preparati vicini e un contatto è sempre possibile.
+      </p>
+      <ul class="filtri" id="filtri">
+        <li><button type="button" aria-pressed="false" data-allergene="glutine">glutine</button></li>
+        <li><button type="button" aria-pressed="false" data-allergene="latte">latte</button></li>
+        <li><button type="button" aria-pressed="false" data-allergene="uova">uova</button></li>
+        <li><button type="button" aria-pressed="false" data-allergene="frutta a guscio">frutta a guscio</button></li>
+        <li><button type="button" aria-pressed="false" data-allergene="soia">soia</button></li>
+        <li><button type="button" aria-pressed="false" data-allergene="pesce">pesce</button></li>
+        <li><button type="button" aria-pressed="false" data-allergene="sedano">sedano</button></li>
+        <li><button type="button" aria-pressed="false" data-allergene="solfiti">solfiti</button></li>
+      </ul>
+    </section>
+
     <section class="course" id="antipasto" style="--d:.05s" aria-labelledby="h-antipasto">
       <div class="course-head">
         <div class="numeral" aria-hidden="true">I</div>
@@ -450,32 +573,55 @@
       </div>
       <ul class="dishes">
         <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Affettato misto</span></div>
+          <div class="dish"><span class="name">Affettato misto</span></div>
           <ul class="ingredients">
             <li>salame</li><li>lonza</li><li>prosciutto</li><li>formaggio</li>
           </ul>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">latte</li>
+            <li class="allergene forse">solfiti (nei salumi)</li>
+          </ul>
         </li>
         <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Verdure sott'olio</span><span class="tag veg">Veg</span></div>
+          <div class="dish"><span class="name">Verdure sott'olio</span><span class="tag veg">Veg</span></div>
           <ul class="ingredients">
             <li>carciofini</li><li>peperoncini ripieni</li>
           </ul>
-        </li>
-        <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Verdure grigliate</span><span class="tag veg">Veg</span></div>
-          <ul class="ingredients">
-            <li>melanzane</li><li>zucchine</li>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene forse">pesce (se il ripieno è al tonno)</li>
+            <li class="allergene forse">latte (se il ripieno è al formaggio)</li>
           </ul>
         </li>
         <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Verdure gratinate</span><span class="tag veg">Veg</span></div>
+          <div class="dish"><span class="name">Verdure grigliate</span><span class="tag veg">Veg</span></div>
           <ul class="ingredients">
             <li>melanzane</li><li>zucchine</li>
           </ul>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene assente">nessuno</li>
+          </ul>
         </li>
         <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Bocconcini di mozzarella</span><span class="tag veg">Veg</span></div>
+          <div class="dish"><span class="name">Verdure gratinate</span><span class="tag veg">Veg</span></div>
+          <ul class="ingredients">
+            <li>melanzane</li><li>zucchine</li>
+          </ul>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">glutine (pangrattato)</li>
+            <li class="allergene">latte (formaggio)</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="name">Bocconcini di mozzarella</span><span class="tag veg">Veg</span></div>
           <ul class="ingredients"><li>mozzarelline</li></ul>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">latte</li>
+          </ul>
         </li>
       </ul>
     </section>
@@ -489,9 +635,32 @@
         </div>
       </div>
       <ul class="dishes">
-        <li><div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Lasagna al forno</span></div></li>
-        <li><div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Tagliatelle ai funghi</span></div></li>
-        <li><div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Pasta ai funghi senza glutine</span><span class="tag gf">Senza glutine</span></div></li>
+        <li>
+          <div class="dish"><span class="name">Lasagna al forno</span></div>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">glutine</li>
+            <li class="allergene">latte (besciamella)</li>
+            <li class="allergene">uova (sfoglia all'uovo)</li>
+            <li class="allergene forse">sedano (nel soffritto del ragù)</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="name">Tagliatelle ai funghi</span></div>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">glutine</li>
+            <li class="allergene">uova</li>
+            <li class="allergene forse">latte (burro o panna nel condimento)</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="name">Pasta ai funghi senza glutine</span><span class="tag gf">Senza glutine</span></div>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene forse">latte (burro o panna nel condimento)</li>
+          </ul>
+        </li>
       </ul>
     </section>
 
@@ -505,17 +674,87 @@
       </div>
       <ul class="dishes">
         <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Pollo arrosto con patate al forno</span></div>
-        </li>
-        <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Frittura mista</span></div>
-          <ul class="ingredients">
-            <li>cotolette</li><li>olive</li><li>zucchine</li><li>salvia</li>
+          <div class="dish"><span class="name">Pollo arrosto con patate al forno</span></div>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene assente">nessuno</li>
           </ul>
         </li>
         <li>
-          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Insalata</span><span class="tag veg">Veg</span></div>
+          <div class="dish"><span class="name">Frittura mista</span></div>
+          <ul class="ingredients">
+            <li>cotolette</li><li>olive</li><li>zucchine</li><li>salvia</li>
+          </ul>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">glutine (impanatura)</li>
+            <li class="allergene">uova (impanatura)</li>
+            <li class="allergene">latte (cotolette e ripieno delle olive)</li>
+            <li class="allergene forse">sedano (nel ripieno delle olive)</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="name">Insalata</span><span class="tag veg">Veg</span></div>
           <ul class="ingredients"><li>cetriolo</li><li>pomodoro</li></ul>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene assente">nessuno</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section class="course" id="dolce" style="--d:.38s" aria-labelledby="h-dolce">
+      <div class="course-head">
+        <div class="numeral" aria-hidden="true">IV</div>
+        <div>
+          <h2 id="h-dolce">Dolce</h2>
+          <p>Fatta in casa</p>
+        </div>
+      </div>
+      <ul class="dishes">
+        <li>
+          <div class="dish">
+                        <span class="name">Crostata: metà marmellata di more, metà Nutella</span>
+            <span class="tag veg">Veg</span>
+          </div>
+          <ul class="ingredients">
+            <li>marmellata di more autoprodotta 🫐</li><li>Nutella</li>
+          </ul>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">glutine</li>
+            <li class="allergene">uova</li>
+            <li class="allergene">latte</li>
+            <li class="allergene">frutta a guscio (nocciole, nella Nutella)</li>
+            <li class="allergene">soia (lecitina, nella Nutella)</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section class="course" id="bere" style="--d:.49s" aria-labelledby="h-bere">
+      <div class="course-head">
+        <div class="numeral" aria-hidden="true">🥂</div>
+        <div>
+          <h2 id="h-bere">Da bere</h2>
+          <p>Della casa</p>
+        </div>
+      </div>
+      <ul class="dishes">
+        <li>
+          <div class="dish"><span class="name">Vino della casa</span></div>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene">solfiti</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="name">Frizzanti, anche della casa</span></div>
+          <ul class="allergeni">
+            <li class="etichetta">Allergeni</li>
+            <li class="allergene assente">nessuno</li>
+          </ul>
         </li>
       </ul>
     </section>
@@ -523,7 +762,9 @@
     <div class="toast-box">
       <button class="toast" type="button" id="brindisi">🥂 Fai un brindisi</button>
       <p class="note">
-        C'è la <strong>pasta senza glutine</strong> per chi ne ha bisogno.<br>
+        C'è la <strong>pasta senza glutine</strong> per chi ne ha bisogno, e la
+        marmellata di more della crostata è <strong>autoprodotta</strong>.<br>
+        Per le allergie, il riquadro in cima al menu — e comunque un fischio in cucina.<br>
         Menu del pranzo di famiglia — <a href="qr.html">stampa il QR code</a> da attaccare in cucina.
       </p>
     </div>
@@ -590,6 +831,39 @@
     sections.forEach(function (s) { io.observe(s); });
     mark(sections[0].id);
   }
+
+  /* --- filtro allergeni: evidenzia i piatti che lo contengono --- */
+  var piatti = Array.prototype.slice.call(document.querySelectorAll("ul.dishes > li"));
+  var bottoni = Array.prototype.slice.call(document.querySelectorAll("#filtri button"));
+
+  function contiene(piatto, allergene) {
+    return Array.prototype.slice
+      .call(piatto.querySelectorAll(".allergene"))
+      .some(function (chip) {
+        return chip.textContent.toLowerCase().indexOf(allergene) !== -1;
+      });
+  }
+
+  function applicaFiltro(allergene) {
+    piatti.forEach(function (piatto) {
+      var hit = allergene && contiene(piatto, allergene);
+      piatto.classList.toggle("evidenziato", !!hit);
+      piatto.classList.toggle("attenuato", !!allergene && !hit);
+    });
+  }
+
+  bottoni.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var attivo = btn.getAttribute("aria-pressed") === "true";
+      bottoni.forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+      if (attivo) {
+        applicaFiltro(null); // secondo tocco: torna al menu completo
+      } else {
+        btn.setAttribute("aria-pressed", "true");
+        applicaFiltro(btn.getAttribute("data-allergene").toLowerCase());
+      }
+    });
+  });
 
   /* --- confetti --- */
   var canvas = document.getElementById("confetti");

@@ -40,6 +40,11 @@ PIATTI = [
     "Pollo arrosto",
     "Frittura mista",
     "Insalata",
+    "Crostata",
+    "marmellata di more",
+    "Nutella",
+    "Vino della casa",
+    "Frizzanti",
 ]
 
 failures: list[str] = []
@@ -131,13 +136,50 @@ def test_pages() -> None:
     index = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     for piatto in PIATTI:
         check(f"menu contiene '{piatto}'", piatto.lower() in index.lower())
-    for sezione in ("Antipasto", "Primo", "Secondo"):
+    for sezione in ("Antipasto", "Primo", "Secondo", "Dolce", "Da bere"):
         check(f"sezione {sezione}", sezione.lower() in index.lower())
     check("nome famiglia presente", "Tosti-Piselli" in index)
     check("luogo presente", "Morignano" in index)
 
     qr_page = open(os.path.join(ROOT, "qr.html"), encoding="utf-8").read()
     check("qr.html mostra l'immagine del QR", "qr-menu" in qr_page)
+
+
+def test_allergeni() -> None:
+    """Ogni piatto deve dichiarare gli allergeni, e ogni allergene indicato
+    deve avere il suo pulsante nella legenda: altrimenti il filtro non lo
+    trova e chi ha un'allergia non lo vede."""
+    print("Allergeni")
+    html = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+
+    blocchi = re.findall(
+        r'<span class="name">(.*?)</span>.*?(<ul class="allergeni">.*?</ul>)', html, re.S
+    )
+    check("ogni piatto ha il blocco allergeni", len(blocchi) >= 12, f"(trovati {len(blocchi)})")
+
+    filtri = set(re.findall(r'data-allergene="([^"]+)"', html))
+    check("la legenda ha i pulsanti dei filtri", len(filtri) >= 6, str(sorted(filtri)))
+
+    for nome, blocco in blocchi:
+        chip_testi = re.findall(r'<li class="allergene[^"]*">(.*?)</li>', blocco)
+        nome_pulito = re.sub(r"\s+", " ", nome).strip()
+        check(f"'{nome_pulito[:34]}' dichiara gli allergeni", bool(chip_testi))
+        for testo in chip_testi:
+            if testo.strip().lower() == "nessuno":
+                continue
+            coperto = any(f in testo.lower() for f in filtri)
+            check(
+                f"'{testo[:30]}' è nella legenda",
+                coperto,
+                "(manca il pulsante nel filtro)",
+            )
+
+    # I piatti senza allergeni devono dirlo esplicitamente, non restare vuoti.
+    check(
+        "i piatti senza allergeni lo dichiarano",
+        html.count('class="allergene assente"') >= 4,
+    )
+    check("la nota sul rischio di contatto c'è", "contatto" in html.lower())
 
 
 def test_browser_render() -> None:
@@ -198,6 +240,7 @@ def main() -> int:
     test_png()
     test_svg_matches()
     test_pages()
+    test_allergeni()
     test_browser_render()
     print()
     if failures:
