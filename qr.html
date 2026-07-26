@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR code · Menu Tosti-Piselli</title>
+<meta name="description" content="Cartello stampabile con il QR code che apre il menu del pranzo di famiglia Tosti-Piselli.">
+<meta name="theme-color" content="#7a1836">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%9D%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --paper: #fff8ee;
+    --card: #fffdf8;
+    --ink: #2b1418;
+    --ink-soft: #6c4a45;
+    --bordeaux: #7a1836;
+    --red: #b03a2e;
+    --gold: #c0871f;
+    --gold-bright: #eab04a;
+    --line: rgba(122, 24, 54, .18);
+    --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    --body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 1.6rem;
+    font-family: var(--body);
+    color: var(--ink);
+    background:
+      radial-gradient(800px 420px at 15% 0%, rgba(234, 176, 74, .3), transparent 60%),
+      radial-gradient(700px 400px at 90% 8%, rgba(176, 58, 46, .2), transparent 62%),
+      var(--paper);
+  }
+
+  .poster {
+    width: min(520px, 100%);
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: 2.2rem 1.8rem 1.9rem;
+    box-shadow: 0 30px 60px -34px rgba(70, 15, 30, .5);
+    position: relative;
+    overflow: hidden;
+  }
+  .poster::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    background: linear-gradient(90deg, var(--bordeaux), var(--red) 40%, var(--gold-bright) 75%, var(--gold));
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin: .4rem 0 0;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+    line-height: 1.02;
+    margin: .5rem 0 .1rem;
+  }
+  h1 .family {
+    display: block;
+    background: linear-gradient(96deg, var(--gold) 0%, var(--gold-bright) 45%, var(--red) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .sub { color: var(--ink-soft); font-size: .93rem; margin: .5rem 0 1.4rem; }
+
+  .qr-frame {
+    display: inline-block;
+    padding: 14px;
+    border-radius: 22px;
+    background: #fffbf2;
+    border: 1px solid var(--line);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8), 0 16px 34px -22px rgba(70, 15, 30, .55);
+  }
+  .qr-frame img { display: block; width: min(300px, 66vw); height: auto; }
+
+  .cta {
+    font-family: var(--display);
+    font-size: 1.22rem;
+    margin: 1.3rem 0 .35rem;
+  }
+  .url {
+    font-size: .82rem;
+    color: var(--ink-soft);
+    word-break: break-all;
+  }
+  .url a { color: var(--red); }
+
+  .links {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: .6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .links a, .links button {
+    font: inherit;
+    font-size: .86rem;
+    font-weight: 650;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--bordeaux);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: .55rem 1.05rem;
+    border-radius: 999px;
+  }
+  .links a:hover, .links button:hover { background: rgba(122, 24, 54, .06); }
+
+  footer { margin-top: 1.4rem; font-size: .76rem; color: var(--ink-soft); }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .poster { box-shadow: none; border: 1px solid #ddd; width: 100%; }
+    .links { display: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <p class="eyebrow">Inquadra per il menu</p>
+    <h1>
+      Pranzo di famiglia
+      <span class="family">Tosti-Piselli</span>
+    </h1>
+    <p class="sub">Festa di paese · Morignano (AP) · Domenica 26 luglio 2026</p>
+
+    <div class="qr-frame">
+      <img src="assets/qr-menu.svg" alt="QR code che apre il menu del pranzo" width="492" height="492">
+    </div>
+
+    <p class="cta">Punta la fotocamera del telefono 📷</p>
+    <p class="url"><a href="https://g95g95.github.io/qr_code/">g95g95.github.io/qr_code/</a></p>
+
+    <div class="links">
+      <a href="index.html">Apri il menu</a>
+      <button type="button" onclick="window.print()">Stampa il cartello</button>
+      <a href="assets/qr-menu.png" download>Scarica il QR (PNG)</a>
+    </div>
+
+    <footer>Correzione errore H · leggibile anche stampato in bianco e nero</footer>
+  </div>
+</body>
+</html>

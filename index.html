@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pranzo di Famiglia Tosti-Piselli · Morignano</title>
+<meta name="description" content="Il menu del pranzo di famiglia Tosti-Piselli per la festa di paese a Morignano, Ascoli Piceno. Antipasto, primo, secondo.">
+<meta name="theme-color" content="#7a1836">
+<meta property="og:title" content="Pranzo di Famiglia Tosti-Piselli">
+<meta property="og:description" content="Festa di paese a Morignano (AP) — il menu completo.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%9D%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --paper: #fff8ee;
+    --paper-2: #fdeedd;
+    --card: #fffdf8;
+    --ink: #2b1418;
+    --ink-soft: #6c4a45;
+    --bordeaux: #7a1836;
+    --red: #b03a2e;
+    --gold: #c0871f;
+    --gold-bright: #eab04a;
+    --olive: #4f6b3a;
+    --line: rgba(122, 24, 54, .16);
+    --shadow: 0 18px 40px -24px rgba(70, 15, 30, .45);
+    --radius: 20px;
+    --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    --body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #1b0f14;
+      --paper-2: #2a1219;
+      --card: rgba(255, 245, 232, .055);
+      --ink: #fdf1e2;
+      --ink-soft: #d8b7a8;
+      --bordeaux: #f6d9c6;
+      --red: #e8785f;
+      --gold: #eab04a;
+      --gold-bright: #f6cd7c;
+      --olive: #a9c48a;
+      --line: rgba(234, 176, 74, .22);
+      --shadow: 0 20px 50px -26px rgba(0, 0, 0, .8);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: var(--body);
+    color: var(--ink);
+    background:
+      radial-gradient(1100px 600px at 12% -8%, rgba(234, 176, 74, .28), transparent 60%),
+      radial-gradient(900px 520px at 92% 4%, rgba(176, 58, 46, .22), transparent 62%),
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 55%, var(--paper) 100%);
+    background-attachment: fixed;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ---------- luminarie ---------- */
+  .garland {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 92px;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .garland svg { display: block; width: 100%; height: 100%; }
+  .garland .wire { fill: none; stroke: var(--bordeaux); stroke-opacity: .5; stroke-width: 1.6; }
+  .bulb { transform-box: fill-box; transform-origin: center; animation: twinkle 3.4s ease-in-out infinite; }
+  .bulb:nth-child(3n) { animation-duration: 2.6s; animation-delay: -.7s; }
+  .bulb:nth-child(4n) { animation-duration: 4.1s; animation-delay: -1.4s; }
+  .bulb:nth-child(5n) { animation-delay: -2.2s; }
+  @keyframes twinkle {
+    0%, 100% { opacity: .55; }
+    50% { opacity: 1; }
+  }
+
+  canvas#confetti {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 60;
+  }
+
+  .wrap {
+    width: min(760px, 100% - 2.2rem);
+    margin-inline: auto;
+  }
+
+  /* ---------- hero ---------- */
+  header.hero {
+    position: relative;
+    text-align: center;
+    padding: 1.2rem 0 2.6rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: color-mix(in srgb, var(--red) 10%, transparent);
+    border: 1px solid var(--line);
+    padding: .45rem .95rem;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+  }
+
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--red) 22%, transparent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--red) 6%, transparent); } }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 12vw, 4.6rem);
+    line-height: .95;
+    margin: 1.1rem 0 .2rem;
+    letter-spacing: -.02em;
+  }
+
+  h1 .script {
+    display: block;
+    font-style: italic;
+    font-size: .62em;
+    color: var(--bordeaux);
+  }
+
+  h1 .family {
+    display: block;
+    margin-top: .12em;
+    background: linear-gradient(96deg, var(--gold) 0%, var(--gold-bright) 42%, var(--red) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-meta {
+    margin: 1.3rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5rem .7rem;
+    font-size: .93rem;
+    color: var(--ink-soft);
+  }
+  .hero-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: .4rem .8rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+  }
+
+  .flourish {
+    display: block;
+    margin: 1.9rem auto .4rem;
+    width: 150px;
+    max-width: 60%;
+    color: var(--gold);
+    opacity: .9;
+  }
+
+  /* ---------- nav ---------- */
+  nav.courses {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: .7rem 0;
+    margin-bottom: .6rem;
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(12px) saturate(1.3);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.courses ul {
+    list-style: none;
+    display: flex;
+    gap: .45rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  nav.courses a {
+    display: block;
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 650;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: .5rem .9rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color .2s, background .2s, border-color .2s;
+  }
+  nav.courses a:hover { color: var(--ink); }
+  nav.courses a[aria-current="true"] {
+    color: #fff8ee;
+    background: linear-gradient(135deg, var(--bordeaux), var(--red));
+    border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+    box-shadow: 0 8px 20px -12px rgba(122, 24, 54, .9);
+  }
+  @media (prefers-color-scheme: dark) {
+    nav.courses a[aria-current="true"] { color: #1b0f14; background: linear-gradient(135deg, var(--gold-bright), var(--red)); }
+  }
+
+  /* ---------- portate ---------- */
+  section.course {
+    margin: 2.4rem 0;
+    scroll-margin-top: 4.6rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: rise .7s cubic-bezier(.2, .7, .3, 1) forwards;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  .course-head {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: 1.15rem 1.35rem;
+    border-bottom: 1px dashed var(--line);
+    background: linear-gradient(120deg, color-mix(in srgb, var(--gold) 14%, transparent), transparent 70%);
+  }
+
+  .numeral {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    font-family: var(--display);
+    font-size: 1.05rem;
+    letter-spacing: .02em;
+    color: #fff8ee;
+    background: linear-gradient(150deg, var(--bordeaux), var(--red) 70%);
+    border-radius: 14px;
+    box-shadow: inset 0 0 0 1px rgba(255, 248, 238, .35), 0 8px 18px -10px rgba(122, 24, 54, .8);
+  }
+
+  .course-head h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    margin: 0;
+    letter-spacing: .01em;
+  }
+  .course-head p {
+    margin: .15rem 0 0;
+    font-size: .8rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  ul.dishes { list-style: none; margin: 0; padding: .35rem 0; }
+
+  ul.dishes > li {
+    padding: .95rem 1.35rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  }
+  ul.dishes > li:last-child { border-bottom: 0; }
+
+  .dish {
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+    flex-wrap: wrap;
+  }
+  .dish .name {
+    font-family: var(--display);
+    font-size: 1.19rem;
+    line-height: 1.25;
+  }
+  .dish .mark {
+    color: var(--gold);
+    font-size: 1rem;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+
+  .tag {
+    font-size: .66rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .2rem .5rem;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .tag.veg { color: var(--olive); background: color-mix(in srgb, var(--olive) 15%, transparent); }
+  .tag.gf { color: var(--red); background: color-mix(in srgb, var(--red) 13%, transparent); }
+
+  .ingredients {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    margin: .6rem 0 0;
+    padding: 0;
+  }
+  .ingredients li {
+    font-size: .82rem;
+    color: var(--ink-soft);
+    background: color-mix(in srgb, var(--gold) 11%, transparent);
+    border: 1px solid var(--line);
+    padding: .22rem .6rem;
+    border-radius: 999px;
+  }
+
+  /* ---------- brindisi / footer ---------- */
+  .toast-box {
+    text-align: center;
+    margin: 2.6rem 0 1.2rem;
+  }
+  button.toast {
+    font: inherit;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+    color: #fff8ee;
+    background: linear-gradient(135deg, var(--bordeaux), var(--red));
+    border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
+    padding: .85rem 1.6rem;
+    border-radius: 999px;
+    box-shadow: 0 14px 30px -16px rgba(122, 24, 54, .9);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  button.toast:hover { transform: translateY(-2px); }
+  button.toast:active { transform: translateY(0) scale(.98); }
+  @media (prefers-color-scheme: dark) {
+    button.toast { color: #1b0f14; background: linear-gradient(135deg, var(--gold-bright), var(--red)); }
+  }
+
+  .note {
+    margin: 1.6rem 0 0;
+    font-size: .86rem;
+    color: var(--ink-soft);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2.4rem 0 3rem;
+    color: var(--ink-soft);
+    font-size: .84rem;
+  }
+  footer .buon {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.7rem;
+    color: var(--bordeaux);
+    margin-bottom: .7rem;
+  }
+  footer a { color: var(--red); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
+    section.course { opacity: 1; transform: none; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .garland, nav.courses, .toast-box, canvas#confetti { display: none !important; }
+    section.course { box-shadow: none; break-inside: avoid; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<div class="garland" aria-hidden="true">
+  <svg viewBox="0 0 1200 92" preserveAspectRatio="none">
+    <path class="wire" d="M0 10 Q 150 66 300 16 T 600 16 T 900 16 T 1200 10"></path>
+    <g id="bulbs"></g>
+  </svg>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p style="margin:0">
+      <span class="eyebrow"><span class="dot"></span> Festa di paese · Morignano (AP)</span>
+    </p>
+
+    <h1>
+      <span class="script">Pranzo di famiglia</span>
+      <span class="family">Tosti-Piselli</span>
+    </h1>
+
+    <div class="hero-meta">
+      <span>🗓️ Domenica 26 luglio 2026</span>
+      <span>📍 Morignano, Ascoli Piceno</span>
+      <span>🎉 Festa di paese</span>
+    </div>
+
+    <svg class="flourish" viewBox="0 0 200 24" fill="none" aria-hidden="true">
+      <path d="M2 12h58" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M140 12h58" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M100 3c7 5 11 7 18 9-7 2-11 4-18 9-7-5-11-7-18-9 7-2 11-4 18-9Z" fill="currentColor"/>
+      <circle cx="70" cy="12" r="2.6" fill="currentColor"/>
+      <circle cx="130" cy="12" r="2.6" fill="currentColor"/>
+    </svg>
+  </header>
+
+  <nav class="courses" aria-label="Portate">
+    <ul>
+      <li><a href="#antipasto">Antipasto</a></li>
+      <li><a href="#primo">Primo</a></li>
+      <li><a href="#secondo">Secondo</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="course" id="antipasto" style="--d:.05s" aria-labelledby="h-antipasto">
+      <div class="course-head">
+        <div class="numeral" aria-hidden="true">I</div>
+        <div>
+          <h2 id="h-antipasto">Antipasto</h2>
+          <p>Per cominciare</p>
+        </div>
+      </div>
+      <ul class="dishes">
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Affettato misto</span></div>
+          <ul class="ingredients">
+            <li>salame</li><li>lonza</li><li>prosciutto</li><li>formaggio</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Verdure sott'olio</span><span class="tag veg">Veg</span></div>
+          <ul class="ingredients">
+            <li>carciofini</li><li>peperoncini ripieni</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Verdure grigliate</span><span class="tag veg">Veg</span></div>
+          <ul class="ingredients">
+            <li>melanzane</li><li>zucchine</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Verdure gratinate</span><span class="tag veg">Veg</span></div>
+          <ul class="ingredients">
+            <li>melanzane</li><li>zucchine</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Bocconcini di mozzarella</span><span class="tag veg">Veg</span></div>
+          <ul class="ingredients"><li>mozzarelline</li></ul>
+        </li>
+      </ul>
+    </section>
+
+    <section class="course" id="primo" style="--d:.16s" aria-labelledby="h-primo">
+      <div class="course-head">
+        <div class="numeral" aria-hidden="true">II</div>
+        <div>
+          <h2 id="h-primo">Primo</h2>
+          <p>Dalla pasta fatta in casa</p>
+        </div>
+      </div>
+      <ul class="dishes">
+        <li><div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Lasagna al forno</span></div></li>
+        <li><div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Tagliatelle ai funghi</span></div></li>
+        <li><div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Pasta ai funghi senza glutine</span><span class="tag gf">Senza glutine</span></div></li>
+      </ul>
+    </section>
+
+    <section class="course" id="secondo" style="--d:.27s" aria-labelledby="h-secondo">
+      <div class="course-head">
+        <div class="numeral" aria-hidden="true">III</div>
+        <div>
+          <h2 id="h-secondo">Secondo</h2>
+          <p>Con i contorni</p>
+        </div>
+      </div>
+      <ul class="dishes">
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Pollo arrosto con patate al forno</span></div>
+        </li>
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Frittura mista</span></div>
+          <ul class="ingredients">
+            <li>cotolette</li><li>olive</li><li>zucchine</li><li>salvia</li>
+          </ul>
+        </li>
+        <li>
+          <div class="dish"><span class="mark" aria-hidden="true">✦</span><span class="name">Insalata</span><span class="tag veg">Veg</span></div>
+          <ul class="ingredients"><li>cetriolo</li><li>pomodoro</li></ul>
+        </li>
+      </ul>
+    </section>
+
+    <div class="toast-box">
+      <button class="toast" type="button" id="brindisi">🥂 Fai un brindisi</button>
+      <p class="note">
+        C'è la <strong>pasta senza glutine</strong> per chi ne ha bisogno.<br>
+        Menu del pranzo di famiglia — <a href="qr.html">stampa il QR code</a> da attaccare in cucina.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="buon">Buon appetito!</div>
+    <p>Famiglia Tosti-Piselli · Morignano (AP) · Festa di paese</p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- luminarie: lampadine lungo il filo --- */
+  var wire = document.querySelector(".garland .wire");
+  var bulbs = document.getElementById("bulbs");
+  if (wire && bulbs && wire.getTotalLength) {
+    var len = wire.getTotalLength();
+    var colors = ["#eab04a", "#b03a2e", "#7a1836", "#e0a033", "#c0871f"];
+    var count = 30;
+    for (var i = 1; i < count; i++) {
+      var p = wire.getPointAtLength((len * i) / count);
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "bulb");
+      var stem = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      stem.setAttribute("x1", p.x); stem.setAttribute("y1", p.y);
+      stem.setAttribute("x2", p.x); stem.setAttribute("y2", p.y + 7);
+      stem.setAttribute("stroke", "#7a1836");
+      stem.setAttribute("stroke-opacity", ".55");
+      stem.setAttribute("stroke-width", "1.2");
+      var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      c.setAttribute("cx", p.x); c.setAttribute("cy", p.y + 11);
+      c.setAttribute("r", 4.2);
+      c.setAttribute("fill", colors[i % colors.length]);
+      var halo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      halo.setAttribute("cx", p.x); halo.setAttribute("cy", p.y + 11);
+      halo.setAttribute("r", 8.5);
+      halo.setAttribute("fill", colors[i % colors.length]);
+      halo.setAttribute("opacity", ".22");
+      g.appendChild(stem); g.appendChild(halo); g.appendChild(c);
+      bulbs.appendChild(g);
+    }
+  }
+
+  /* --- evidenzia la portata visibile --- */
+  var links = Array.prototype.slice.call(document.querySelectorAll("nav.courses a"));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+
+  function mark(id) {
+    links.forEach(function (a) {
+      a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false");
+    });
+  }
+  if ("IntersectionObserver" in window && sections.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+    mark(sections[0].id);
+  }
+
+  /* --- confetti --- */
+  var canvas = document.getElementById("confetti");
+  var ctx = canvas.getContext && canvas.getContext("2d");
+  var pieces = [];
+  var raf = null;
+  var palette = ["#eab04a", "#b03a2e", "#7a1836", "#4f6b3a", "#e0a033", "#fff8ee"];
+
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(window.innerWidth * dpr);
+    canvas.height = Math.floor(window.innerHeight * dpr);
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function burst(n) {
+    if (!ctx || reduce) return;
+    for (var i = 0; i < n; i++) {
+      pieces.push({
+        x: Math.random() * window.innerWidth,
+        y: -20 - Math.random() * window.innerHeight * 0.4,
+        w: 5 + Math.random() * 6,
+        h: 8 + Math.random() * 8,
+        vy: 1.6 + Math.random() * 2.6,
+        vx: -0.8 + Math.random() * 1.6,
+        rot: Math.random() * Math.PI,
+        vr: -0.09 + Math.random() * 0.18,
+        color: palette[(Math.random() * palette.length) | 0]
+      });
+    }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (var i = pieces.length - 1; i >= 0; i--) {
+      var p = pieces[i];
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.9;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+      if (p.y > window.innerHeight + 30) pieces.splice(i, 1);
+    }
+    if (pieces.length) { raf = requestAnimationFrame(tick); }
+    else { cancelAnimationFrame(raf); raf = null; ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); }
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+  var btn = document.getElementById("brindisi");
+  if (btn) {
+    btn.addEventListener("click", function () { burst(90); });
+  }
+  // benvenuto: una pioggia leggera all'apertura
+  setTimeout(function () { burst(45); }, 550);
+})();
+</script>
+</body>
+</html>

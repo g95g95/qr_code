@@ -1,0 +1,54 @@
+name: Deploy menu su GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - claude/qr-code-menu-landing-vjqbzw
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Installa le dipendenze del generatore
+        run: pip install segno Pillow opencv-python-headless
+      - name: Rigenera il QR e verifica che coincida con quello committato
+        run: |
+          python3 tools/generate_qr.py
+          git diff --exit-code -- assets/
+      - name: Test QR + landing page
+        run: python3 tools/test_qr.py
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configura Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Carica il sito
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Pubblica
+        id: deployment
+        uses: actions/deploy-pages@v4
