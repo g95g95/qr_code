@@ -41,14 +41,39 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      # Pages puo' essere servito in due modi: "GitHub Actions" (deploy da
+      # questo workflow) oppure "Deploy from a branch" (ci pensa GitHub).
+      # Se e' impostato su branch, o se Pages non e' ancora attivo, i passi
+      # successivi vengono saltati invece di far fallire il run.
+      - name: Rileva come e' configurato Pages
+        id: sorgente
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tipo=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+                        -H "Accept: application/vnd.github+json" \
+                        "https://api.github.com/repos/${{ github.repository }}/pages" \
+                 | python3 -c "import sys,json; print(json.load(sys.stdin).get('build_type','assente'))" \
+                 2>/dev/null || echo assente)
+          echo "tipo=$tipo" >> "$GITHUB_OUTPUT"
+          case "$tipo" in
+            workflow) echo "Pages usa GitHub Actions: pubblico da qui." ;;
+            legacy)   echo "Pages e' servito da un branch: ci pensa GitHub, salto il deploy." ;;
+            *)        echo "Pages non e' ancora attivo: Settings -> Pages -> Source." ;;
+          esac
+
       - name: Configura Pages
+        if: steps.sorgente.outputs.tipo == 'workflow'
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
+
       - name: Carica il sito
+        if: steps.sorgente.outputs.tipo == 'workflow'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
       - name: Pubblica
         id: deployment
+        if: steps.sorgente.outputs.tipo == 'workflow'
         uses: actions/deploy-pages@v4
